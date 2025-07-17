@@ -74,4 +74,16 @@ public class PracticeLogService {
         }
         return streak;
     }
+
+    public List<PracticeLog> getUserLogsByTag(Long userId, String tag) {
+        return practiceLogRepository.findByUserIdAndTagsContaining(userId, tag);
+    }
+
+    public List<PracticeLog> getUserLogsBySkill(Long userId, Long skillId) {
+        return practiceLogRepository.findByUserIdAndSkill_Id(userId, skillId);
+    }
+
+    public List<PracticeLog> getUserLogsBySkillAndDateRange(Long userId, Long skillId, LocalDate start, LocalDate end) {
+        return practiceLogRepository.findByUserIdAndSkill_IdAndDateBetween(userId, skillId, start, end);
+    }
 }

@@ -72,4 +72,27 @@ public class PracticeLogController {
         log.info("Calculating streak for userId: {}", userId);
         return practiceLogService.getStreak(userId);
     }
+
+    @GetMapping("/user/{userId}/tag")
+    @PreAuthorize("isAuthenticated()")
+    public List<PracticeLog> getUserLogsByTag(@PathVariable Long userId, @RequestParam String tag) {
+        log.info("Fetching practice logs for userId: {} with tag: {}", userId, tag);
+        return practiceLogService.getUserLogsByTag(userId, tag);
+    }
+
+    @GetMapping("/user/{userId}/skill/{skillId}")
+    @PreAuthorize("isAuthenticated()")
+    public List<PracticeLog> getUserLogsBySkill(@PathVariable Long userId, @PathVariable Long skillId) {
+        log.info("Fetching practice logs for userId: {} and skillId: {}", userId, skillId);
+        return practiceLogService.getUserLogsBySkill(userId, skillId);
+    }
+
+    @GetMapping("/user/{userId}/skill/{skillId}/range")
+    @PreAuthorize("isAuthenticated()")
+    public List<PracticeLog> getUserLogsBySkillAndDateRange(@PathVariable Long userId, @PathVariable Long skillId,
+            @RequestParam String start, @RequestParam String end) {
+        log.info("Fetching practice logs for userId: {} and skillId: {} from {} to {}", userId, skillId, start, end);
+        return practiceLogService.getUserLogsBySkillAndDateRange(userId, skillId, java.time.LocalDate.parse(start),
+                java.time.LocalDate.parse(end));
+    }
 }
