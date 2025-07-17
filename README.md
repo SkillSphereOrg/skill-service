@@ -142,6 +142,15 @@ Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkZW1vIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdfQ.2
   ```
 - Integrate with Ingress or API Gateway for external access.
 
+## CI/CD
+
+- GitHub Actions workflow is provided in `.github/workflows/ci.yml`.
+- On every push or PR to `main`, the workflow:
+  - Builds and tests the project
+  - (On main branch) Builds and pushes a Docker image to Docker Hub
+- To enable Docker image publishing, set `DOCKERHUB_USERNAME` and `DOCKERHUB_TOKEN` as repository secrets.
+- You can extend the workflow for deployment to Kubernetes or cloud providers.
+
 ---
 
 Further documentation will be added as the service is developed.
