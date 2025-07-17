@@ -107,6 +107,17 @@ docker run --env-file .env -p 8081:8080 skillsphere-skill-service
 
 - All errors are returned as JSON with clear messages and validation details.
 
+## Demo Credentials & Sample JWT
+
+- Sample data (skills, practice logs) is auto-initialized in dev profile.
+- Use the Auth Service to generate a JWT, or use this sample JWT for testing (admin role):
+
+```
+Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkZW1vIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdfQ.2QwQw5QwQw5QwQw5QwQw5QwQw5QwQwQw5QwQw5QwQwQw
+```
+
+- Replace with a real JWT for production use.
+
 ---
 
 Further documentation will be added as the service is developed.
