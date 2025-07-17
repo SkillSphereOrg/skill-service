@@ -13,7 +13,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 
+@Tag(name = "PracticeLog", description = "Endpoints for logging and analyzing practice sessions")
 @RestController
 @RequestMapping("/api/v1/practice-logs")
 @RequiredArgsConstructor
@@ -21,6 +24,7 @@ public class PracticeLogController {
     private final PracticeLogService practiceLogService;
     private static final Logger log = LoggerFactory.getLogger(PracticeLogController.class);
 
+    @Operation(summary = "List practice logs for a user")
     @GetMapping("/user/{userId}")
     @PreAuthorize("isAuthenticated()")
     public List<PracticeLog> getUserLogs(@PathVariable Long userId) {
@@ -28,6 +32,7 @@ public class PracticeLogController {
         return practiceLogService.getUserLogs(userId);
     }
 
+    @Operation(summary = "Log a practice session")
     @PostMapping
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<PracticeLog> logPractice(@RequestBody PracticeLog practiceLog) {
@@ -36,6 +41,7 @@ public class PracticeLogController {
         return ResponseEntity.ok(practiceLogService.logPractice(practiceLog));
     }
 
+    @Operation(summary = "Update a practice log")
     @PutMapping("/{id}")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<PracticeLog> updatePractice(@PathVariable Long id, @RequestBody PracticeLog practiceLog) {
@@ -43,6 +49,7 @@ public class PracticeLogController {
         return ResponseEntity.ok(practiceLogService.updatePractice(id, practiceLog));
     }
 
+    @Operation(summary = "Delete a practice log")
     @DeleteMapping("/{id}")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<Void> deletePractice(@PathVariable Long id) {

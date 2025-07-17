@@ -9,7 +9,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 
+@Tag(name = "AdminAnalytics", description = "Admin endpoints for system analytics and reporting")
 @RestController
 @RequestMapping("/api/v1/admin/analytics")
 @RequiredArgsConstructor
@@ -17,6 +20,7 @@ public class AdminAnalyticsController {
     private final AdminAnalyticsService analyticsService;
     private static final Logger log = LoggerFactory.getLogger(AdminAnalyticsController.class);
 
+    @Operation(summary = "Get system summary analytics")
     @GetMapping("/summary")
     @PreAuthorize("hasRole('ADMIN')")
     public Map<String, Object> getSummary() {
@@ -24,6 +28,7 @@ public class AdminAnalyticsController {
         return analyticsService.getSummary();
     }
 
+    @Operation(summary = "Get top skills by practice time")
     @GetMapping("/top-skills")
     @PreAuthorize("hasRole('ADMIN')")
     public List<Map<String, Object>> getTopSkills(@RequestParam(defaultValue = "5") int limit) {
