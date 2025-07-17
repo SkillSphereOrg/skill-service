@@ -118,6 +118,17 @@ Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkZW1vIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdfQ.2
 
 - Replace with a real JWT for production use.
 
+## Monitoring & Observability
+
+- Actuator endpoints for health, info, metrics, prometheus, and httptrace are enabled.
+- Example endpoints:
+  - `/actuator/health` — Health check
+  - `/actuator/info` — App info
+  - `/actuator/metrics` — JVM and app metrics
+  - `/actuator/prometheus` — Prometheus scrape endpoint
+  - `/actuator/httptrace` — Recent HTTP requests
+- Integrate with Prometheus/Grafana for dashboards and alerting.
+
 ---
 
 Further documentation will be added as the service is developed.
