@@ -13,7 +13,7 @@ import jakarta.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/user-skills")
+@RequestMapping("/api/v1/user-skills")
 @RequiredArgsConstructor
 public class UserSkillController {
     private final UserSkillService userSkillService;

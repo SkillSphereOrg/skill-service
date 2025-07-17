@@ -15,7 +15,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/practice-logs")
+@RequestMapping("/api/v1/practice-logs")
 @RequiredArgsConstructor
 public class PracticeLogController {
     private final PracticeLogService practiceLogService;

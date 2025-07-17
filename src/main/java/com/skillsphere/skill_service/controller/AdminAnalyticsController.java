@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/admin/analytics")
+@RequestMapping("/api/v1/admin/analytics")
 @RequiredArgsConstructor
 public class AdminAnalyticsController {
     private final AdminAnalyticsService analyticsService;

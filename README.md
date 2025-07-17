@@ -88,12 +88,20 @@ docker run --env-file .env -p 8081:8080 skillsphere-skill-service
 - Swagger UI: [http://localhost:8081/swagger-ui.html](http://localhost:8081/swagger-ui.html)
 - OpenAPI JSON: [http://localhost:8081/v3/api-docs](http://localhost:8081/v3/api-docs)
 
+## API Gateway & Service Discovery
+
+- All endpoints are versioned with `/api/v1/` for easy gateway routing and future upgrades.
+- Ready for integration with API Gateway (Spring Cloud Gateway, NGINX, Traefik, etc.).
+- For service discovery (Kubernetes, Consul, Eureka), set `spring.application.name` and expose actuator endpoints.
+
 ## Example Endpoints
 
-- `GET /api/skills` — List all skills
-- `POST /api/skills` — Create new skill (admin only)
-- `GET /api/user-skills/user/{userId}` — List all skills for a user
-- `POST /api/user-skills` — Assign skill to user
+- `GET /api/v1/skills` — List all skills
+- `POST /api/v1/skills` — Create new skill (admin only)
+- `GET /api/v1/user-skills/user/{userId}` — List all skills for a user
+- `POST /api/v1/user-skills` — Assign skill to user
+- `GET /api/v1/practice-logs/user/{userId}` — List practice logs for a user
+- `GET /api/v1/admin/analytics/summary` — System summary (admin only)
 
 ## Error Handling
 
