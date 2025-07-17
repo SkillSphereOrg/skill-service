@@ -5,6 +5,8 @@ import com.skillsphere.skill_service.service.PracticeLogService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -94,5 +96,18 @@ public class PracticeLogController {
         log.info("Fetching practice logs for userId: {} and skillId: {} from {} to {}", userId, skillId, start, end);
         return practiceLogService.getUserLogsBySkillAndDateRange(userId, skillId, java.time.LocalDate.parse(start),
                 java.time.LocalDate.parse(end));
+    }
+
+    @GetMapping("/user/{userId}/export")
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<byte[]> exportUserLogsAsCsv(@PathVariable Long userId, @RequestParam String start,
+            @RequestParam String end) {
+        log.info("Exporting practice logs as CSV for userId: {} from {} to {}", userId, start, end);
+        byte[] csv = practiceLogService.exportUserLogsAsCsv(userId, java.time.LocalDate.parse(start),
+                java.time.LocalDate.parse(end));
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=practice-logs.csv")
+                .contentType(MediaType.parseMediaType("text/csv"))
+                .body(csv);
     }
 }

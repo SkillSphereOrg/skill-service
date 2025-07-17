@@ -86,4 +86,28 @@ public class PracticeLogService {
     public List<PracticeLog> getUserLogsBySkillAndDateRange(Long userId, Long skillId, LocalDate start, LocalDate end) {
         return practiceLogRepository.findByUserIdAndSkill_IdAndDateBetween(userId, skillId, start, end);
     }
+
+    public byte[] exportUserLogsAsCsv(Long userId, LocalDate start, LocalDate end) {
+        List<PracticeLog> logs = getUserLogsByDateRange(userId, start, end);
+        StringBuilder csv = new StringBuilder();
+        csv.append("date,skill,duration,notes,tags\n");
+        for (PracticeLog log : logs) {
+            csv.append(log.getDate()).append(",")
+                    .append(log.getSkill() != null ? escapeCsv(log.getSkill().getName()) : "").append(",")
+                    .append(log.getDuration()).append(",")
+                    .append(escapeCsv(log.getNotes())).append(",")
+                    .append(escapeCsv(log.getTags())).append("\n");
+        }
+        return csv.toString().getBytes(java.nio.charset.StandardCharsets.UTF_8);
+    }
+
+    private String escapeCsv(String value) {
+        if (value == null)
+            return "";
+        String escaped = value.replace("\"", "\"\"");
+        if (escaped.contains(",") || escaped.contains("\"") || escaped.contains("\n")) {
+            return '"' + escaped + '"';
+        }
+        return escaped;
+    }
 }
