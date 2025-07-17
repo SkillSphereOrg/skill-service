@@ -129,6 +129,19 @@ Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkZW1vIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdfQ.2
   - `/actuator/httptrace` — Recent HTTP requests
 - Integrate with Prometheus/Grafana for dashboards and alerting.
 
+## Kubernetes Deployment
+
+- Kubernetes manifests are provided in the `k8s/` directory:
+  - `skill-service-deployment.yaml` — Deployment with health checks and env var support
+  - `skill-service-service.yaml` — ClusterIP Service for internal networking
+- Use ConfigMaps and Secrets for environment variables and secrets.
+- Example:
+  ```sh
+  kubectl apply -f k8s/skill-service-deployment.yaml
+  kubectl apply -f k8s/skill-service-service.yaml
+  ```
+- Integrate with Ingress or API Gateway for external access.
+
 ---
 
 Further documentation will be added as the service is developed.

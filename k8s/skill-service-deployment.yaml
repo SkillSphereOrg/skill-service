@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: skill-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: skill-service
+  template:
+    metadata:
+      labels:
+        app: skill-service
+    spec:
+      containers:
+        - name: skill-service
+          image: skillsphere-skill-service:latest
+          ports:
+            - containerPort: 8081
+          envFrom:
+            - configMapRef:
+                name: skill-service-config
+            - secretRef:
+                name: skill-service-secrets
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8081
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8081
+            initialDelaySeconds: 30
+            periodSeconds: 30
