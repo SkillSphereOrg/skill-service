@@ -1,7 +1,7 @@
 package com.skillsphere.skill_service.repository;
 
-import com.skillsphere.skillservice.model.UserSkill;
-import com.skillsphere.skillservice.model.Skill;
+import com.skillsphere.skill_service.model.UserSkill;
+import com.skillsphere.skill_service.model.Skill;
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 

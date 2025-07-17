@@ -17,6 +17,49 @@ SkillSphere Skill Service is a microservice responsible for managing skills, use
 
 All configuration is environment-based. See `src/main/resources/application.properties` for details.
 
+## Environment Variables
+
+See `.env.example` for all required variables. Key variables:
+
+- `SPRING_DATASOURCE_URL` — JDBC URL for MySQL
+- `SPRING_DATASOURCE_USERNAME` — MySQL username
+- `SPRING_DATASOURCE_PASSWORD` — MySQL password
+- `APP_JWT_SECRET` — Secret for JWT validation (must match Auth Service)
+- `APP_JWT_EXPIRATION_MS` — JWT expiration in ms (default: 86400000)
+- `SPRING_MAIL_*` — Mail config (optional)
+- `SERVER_PORT` — Port to run the service (default: 8081)
+- `MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE` — Actuator endpoints to expose
+
+## Docker Compose Example
+
+```yaml
+version: "3.8"
+services:
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: yourpassword
+      MYSQL_DATABASE: skillsphere
+    ports:
+      - "3306:3306"
+
+  auth-service:
+    build: ./auth-service
+    env_file: ./auth-service/.env
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql
+
+  skill-service:
+    build: ./skill-service
+    env_file: ./skill-service/.env
+    ports:
+      - "8081:8081"
+    depends_on:
+      - mysql
+```
+
 ## Running the Service
 
 ### Local
