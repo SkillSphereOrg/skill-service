@@ -1,0 +1,20 @@
+version: "3.8"
+
+services:
+  skill-service:
+    build: .
+    container_name: skill-service
+    restart: on-failure
+    ports:
+      - "8081:8081"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql-db:3306/${DB_NAME}
+      - SPRING_DATASOURCE_USERNAME=${DB_USERNAME}
+      - SPRING_DATASOURCE_PASSWORD=${DB_PASSWORD}
+      - JWT_SECRET=${JWT_SECRET}
+    networks:
+      - skillsphere-net
+
+networks:
+  skillsphere-net:
+    external: true
